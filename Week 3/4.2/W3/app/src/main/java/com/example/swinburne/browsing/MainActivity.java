@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         imgBtn3 = findViewById(R.id.imgBtnThird);
         imgBtn4 = findViewById(R.id.imgBtnFourth);
 
+        
     }
 
     public void clickFirstButton(View v) {
