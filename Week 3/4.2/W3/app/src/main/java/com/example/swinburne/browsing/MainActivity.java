@@ -6,10 +6,12 @@ import android.graphics.drawable.BitmapDrawable;
 import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,6 +20,8 @@ public class MainActivity extends AppCompatActivity {
     ImageButton imgBtn2;
     ImageButton imgBtn3;
     ImageButton imgBtn4;
+
+    private static int COMPRESS_QUALITY = 50;
 
 
     @Override
@@ -29,84 +33,75 @@ public class MainActivity extends AppCompatActivity {
 
     private void initializeUI() {
         imgBtn1 = findViewById(R.id.imgBtnFirst);
-        imgBtn1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                clickFirstButton();
-            }
-        });
-
         imgBtn2 = findViewById(R.id.imgBtnSecond);
-        imgBtn2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                clickSecondButton();
-            }
-        });
-
         imgBtn3 = findViewById(R.id.imgBtnThird);
-        imgBtn3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                clickThirdButton();
-            }
-        });
-
         imgBtn4 = findViewById(R.id.imgBtnFourth);
-        imgBtn4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                clickFourthButton();
-            }
-        });
+
     }
 
-    private void clickFirstButton() {
-        Intent intent = new Intent(this, ImageDisplayActivity.class);
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        BitmapDrawable drawable = (BitmapDrawable) imgBtn1.getDrawable();
-        Bitmap bitmap = drawable.getBitmap();
-        bitmap.compress(Bitmap.CompressFormat.JPEG,50, stream);
-        byte[] byteArray = stream.toByteArray();
-        intent.putExtra("image", byteArray);
-        intent.putExtra("description", "This is the first image");
-        startActivity(intent);
+    public void clickFirstButton(View v) {
+        try {
+            Intent intent = new Intent(this, ImageDisplayActivity.class);
+            byte[] byteArray = convertImageToBytes((BitmapDrawable) imgBtn1.getDrawable(), COMPRESS_QUALITY);
+            intent.putExtra("image", byteArray);
+            intent.putExtra("description", getString(R.string.image_description_1));
+            startActivity(intent);
+        } catch (IOException ex) {
+            Log.e("Error", "Cannot convert image");
+        }
     }
 
-    private void clickSecondButton() {
-        Intent intent = new Intent(this, ImageDisplayActivity.class);
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        BitmapDrawable drawable = (BitmapDrawable) imgBtn2.getDrawable();
-        Bitmap bitmap = drawable.getBitmap();
-        bitmap.compress(Bitmap.CompressFormat.JPEG,50, stream);
-        byte[] byteArray = stream.toByteArray();
-        intent.putExtra("image", byteArray);
-        intent.putExtra("description", "This is the second image");
-        startActivity(intent);
+    public void clickSecondButton(View v) {
+        try {
+            Intent intent = new Intent(this, ImageDisplayActivity.class);
+            byte[] byteArray = convertImageToBytes((BitmapDrawable) imgBtn2.getDrawable(), COMPRESS_QUALITY);
+            intent.putExtra("image", byteArray);
+            intent.putExtra("description", getString(R.string.image_description_2));
+            startActivity(intent);
+        } catch (IOException ex) {
+            Log.e("Error", "Cannot convert image");
+        }
     }
 
-    private void clickThirdButton() {
-        Intent intent = new Intent(this, ImageDisplayActivity.class);
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        BitmapDrawable drawable = (BitmapDrawable) imgBtn3.getDrawable();
-        Bitmap bitmap = drawable.getBitmap();
-        bitmap.compress(Bitmap.CompressFormat.JPEG,50, stream);
-        byte[] byteArray = stream.toByteArray();
-        intent.putExtra("image", byteArray);
-        intent.putExtra("description", "This is the third image");
-        startActivity(intent);
+    public void clickThirdButton(View v) {
+        try {
+            Intent intent = new Intent(this, ImageDisplayActivity.class);
+            byte[] byteArray = convertImageToBytes((BitmapDrawable) imgBtn3.getDrawable(), COMPRESS_QUALITY);
+            intent.putExtra("image", byteArray);
+            intent.putExtra("description", getString(R.string.image_description_3));
+            startActivity(intent);
+        } catch (IOException ex) {
+            Log.e("Error", "Cannot convert image");
+        }
     }
 
-    private void clickFourthButton() {
-        Intent intent = new Intent(this, ImageDisplayActivity.class);
+    public void clickFourthButton(View v) {
+        try {
+            Intent intent = new Intent(this, ImageDisplayActivity.class);
+            byte[] byteArray = convertImageToBytes((BitmapDrawable) imgBtn4.getDrawable(), COMPRESS_QUALITY);
+            intent.putExtra("image", byteArray);
+            intent.putExtra("description", getString(R.string.image_description_4));
+            startActivity(intent);
+        } catch (IOException ex) {
+            Log.e("Error", "Cannot convert image");
+        }
+
+    }
+
+    /**
+     * Convert image from drawable to byteArray[]
+     * @param bitmapDrawable resource drawable image
+     * @param quality   image quality after scaling
+     * @return byteArray[] with quality
+     * @throws IOException closing exception
+     */
+    private byte[] convertImageToBytes (BitmapDrawable bitmapDrawable, int quality) throws IOException {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        BitmapDrawable drawable = (BitmapDrawable) imgBtn4.getDrawable();
-        Bitmap bitmap = drawable.getBitmap();
-        bitmap.compress(Bitmap.CompressFormat.JPEG,50, stream);
+        Bitmap bitmap = bitmapDrawable.getBitmap();
+        bitmap.compress(Bitmap.CompressFormat.JPEG,quality, stream);
         byte[] byteArray = stream.toByteArray();
-        intent.putExtra("image", byteArray);
-        intent.putExtra("description", "This is the fourth image");
-        startActivity(intent);
+        stream.close();
+        return byteArray;
     }
 
 }

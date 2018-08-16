@@ -20,12 +20,14 @@
                 android:layout_width="wrap_content"
                 android:src="@drawable/image1"
                 android:layout_marginEnd="5dp"
+                android:onClick="clickFirstButton"
                 android:layout_weight="1"/>
 
             <ImageButton android:id="@+id/imgBtnSecond"
                 android:layout_height="120dp"
                 android:layout_width="wrap_content"
                 android:src="@drawable/image2"
+                android:onClick="clickSecondButton"
                 android:layout_weight="1"/>
         </TableRow>
 
@@ -35,11 +37,13 @@
                 android:layout_width="wrap_content"
                 android:src="@drawable/image3"
                 android:layout_marginEnd="5dp"
+                android:onClick="clickThirdButton"
                 android:layout_weight="1"/>
 
             <ImageButton android:id="@+id/imgBtnFourth"
                 android:layout_height="120dp"
                 android:layout_width="wrap_content"
+                android:onClick="clickFourthButton"
                 android:src="@drawable/image4"
                 android:layout_weight="1"/>
         </TableRow>

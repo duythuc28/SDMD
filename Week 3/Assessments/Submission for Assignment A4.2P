@@ -1,0 +1,165 @@
+Submission for Assignment A4.2P
+
+1. Code snippets show how the two activities are connected.
+------------------------------------------------------------------------------------------
+// In manifest, ImageDisplayActivity is set MainActivity as its parent activity 
+------------ Android Manifest -------------
+
+<activity android:name=".MainActivity">
+    <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+    </intent-filter>
+</activity>
+<activity android:name=".ImageDisplayActivity"
+        android:parentActivityName=".MainActivity">
+</activity>
+
+---------------------------------------------
+
+------------ MainActivity -------------
+// In MainActivity, Intent is used to start ImageDisplayActivity and also to pass an image as well as a text to a
+// destination activity. Depends on the specific image that the user selects, this method will send the 
+// particular image and text to ImageDisplayActivity to display.
+----------------------------------------------------------------------------------------------------------
+|	Intent intent = new Intent(this, ImageDisplayActivity.class);										 |
+|   byte[] byteArray = convertImageToBytes((BitmapDrawable) imgBtn1.getDrawable(), COMPRESS_QUALITY);    |
+|   intent.putExtra("image", byteArray);																 |
+|   intent.putExtra("description", getString(R.string.image_description_1));							 |
+|   startActivity(intent);																				 |
+-----------------------------------------------------------------------------------------------------------
+---------------------------------------------    
+
+------------ ImageDisplayActivity -------------
+// ImageDisplayActivity retrieves the data passing from MainActivity by using getIntent() method
+// and then ImageView and TextView is set appropriately 
+private void initialiseUI() {
+		// Get the image from Intent
+        byte[] byteArray = getIntent().getByteArrayExtra("image");
+        Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+        imgView = findViewById(R.id.imgView);
+        imgView.setImageBitmap(bmp);
+        // Get text from Intent
+        String description = getIntent().getStringExtra("description");
+        TextView txtView = findViewById(R.id.txtDescription);
+        txtView.setText(description);
+    }
+------------------------------------------------------------------------------------------    
+2. Code snippet shows the XML layouts of the activities.
+------------------------------------------------------------------------------------------
+------------ activity_main.xml -------------
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.swinburne.browsing.MainActivity">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp">
+
+        <TableRow android:layout_marginBottom="5dp">
+            <ImageButton android:id="@+id/imgBtnFirst"
+                android:layout_height="120dp"
+                android:layout_width="wrap_content"
+                android:src="@drawable/image1"
+                android:layout_marginEnd="5dp"
+                android:onClick="clickFirstButton"
+                android:layout_weight="1"/>
+
+            <ImageButton android:id="@+id/imgBtnSecond"
+                android:layout_height="120dp"
+                android:layout_width="wrap_content"
+                android:src="@drawable/image2"
+                android:onClick="clickSecondButton"
+                android:layout_weight="1"/>
+        </TableRow>
+
+        <TableRow>
+            <ImageButton android:id="@+id/imgBtnThird"
+                android:layout_height="120dp"
+                android:layout_width="wrap_content"
+                android:src="@drawable/image3"
+                android:layout_marginEnd="5dp"
+                android:onClick="clickThirdButton"
+                android:layout_weight="1"/>
+
+            <ImageButton android:id="@+id/imgBtnFourth"
+                android:layout_height="120dp"
+                android:layout_width="wrap_content"
+                android:onClick="clickFourthButton"
+                android:src="@drawable/image4"
+                android:layout_weight="1"/>
+        </TableRow>
+
+    </TableLayout>
+</android.support.constraint.ConstraintLayout>
+
+------------ activity_image_display.xml -------------
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.swinburne.browsing.ImageDisplayActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp">
+
+        <ImageView
+            android:id="@+id/imgView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+            android:adjustViewBounds="true"
+            />
+
+        <TextView
+            android:id="@+id/txtDescription"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"/>
+
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>
+------------------------------------------------------------------------------------------    
+3. Code snippet shows how the image and text are loaded/set.
+------------ ImageDisplayActivity -------------
+// ImageDisplayActivity retrieves the data passing from MainActivity by using getIntent() method
+// and then ImageView and TextView is set appropriately 
+private void initialiseUI() {
+		// Get the image from Intent
+        byte[] byteArray = getIntent().getByteArrayExtra("image");
+        Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+        imgView = findViewById(R.id.imgView);
+        imgView.setImageBitmap(bmp);
+        // Get text from Intent
+        String description = getIntent().getStringExtra("description");
+        TextView txtView = findViewById(R.id.txtDescription);
+        txtView.setText(description);
+    }
+
+4. String values are in external XML values (not within layout).
+<resources>
+    <string name="app_name">Browsing</string>
+    <string name="image_description_1">This is the first image</string>
+    <string name="image_description_2">This is the second image</string>
+    <string name="image_description_3">This is the third image</string>
+    <string name="image_description_4">This is the fourth image</string>
+</resources>
+
+

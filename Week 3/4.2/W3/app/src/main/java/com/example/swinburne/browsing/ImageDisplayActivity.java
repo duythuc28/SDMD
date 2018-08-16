@@ -17,7 +17,10 @@ public class ImageDisplayActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_display);
+        initialiseUI();
+    }
 
+    private void initialiseUI() {
         byte[] byteArray = getIntent().getByteArrayExtra("image");
         Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
         imgView = findViewById(R.id.imgView);
