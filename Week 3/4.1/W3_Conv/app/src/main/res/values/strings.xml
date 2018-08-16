@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Conversion</string>
+    <string name="title_activity_temperature_conversion">Temperature Conversion</string>
+    <string name="title_activity_distance_conversion">Distance Conversion</string>
+    <string name="btn_convert">Convert</string>
+    <string name="checkbox_metres">Display in metres</string>
+    <string name="metres">metres</string>
+    <string name="result">Results:</string>
+</resources>
