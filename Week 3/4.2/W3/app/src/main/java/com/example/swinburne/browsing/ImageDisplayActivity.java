@@ -13,6 +13,9 @@ public class ImageDisplayActivity extends AppCompatActivity {
 
     ImageView imgView;
 
+    private static final String INTENT_IMAGE_KEY = "image";
+    private static final String INTENT_DESCRIPTION_KEY = "description";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,11 +24,9 @@ public class ImageDisplayActivity extends AppCompatActivity {
     }
 
     private void initialiseUI() {
-        byte[] byteArray = getIntent().getByteArrayExtra("image");
-        Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
         imgView = findViewById(R.id.imgView);
-        imgView.setImageBitmap(bmp);
-        String description = getIntent().getStringExtra("description");
+        imgView.setImageResource(getIntent().getIntExtra(INTENT_IMAGE_KEY,0));
+        String description = getIntent().getStringExtra(INTENT_DESCRIPTION_KEY);
         TextView txtView = findViewById(R.id.txtDescription);
         txtView.setText(description);
     }
