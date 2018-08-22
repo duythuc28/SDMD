@@ -29,5 +29,6 @@ public class ImageDisplayActivity extends AppCompatActivity {
         String description = getIntent().getStringExtra(INTENT_DESCRIPTION_KEY);
         TextView txtView = findViewById(R.id.txtDescription);
         txtView.setText(description);
+
     }
 }

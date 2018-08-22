@@ -67,5 +67,6 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(INTENT_DESCRIPTION_KEY, getString(R.string.image_description_4));
         intent.putExtra(INTENT_IMAGE_KEY, R.drawable.italian);
         startActivity(intent);
+//        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://9news.com.au")));
     }
 }
