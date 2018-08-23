@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import com.example.swinburne.simplebooklist.Book;
 import com.example.swinburne.simplebooklist.R;
@@ -18,10 +19,12 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
     public class BookViewHolder extends RecyclerView.ViewHolder {
         public TextView title;
         public ImageView logo;
+        public RatingBar ratingBar;
         public BookViewHolder(View view) {
             super(view);
             title = (TextView) view.findViewById(R.id.txtTitle);
             logo = view.findViewById(R.id.imgViewIcon);
+            ratingBar = view.findViewById(R.id.ratingStar);
         }
     }
 
@@ -41,6 +44,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
         Book book =  bookList.get(position);
         holder.title.setText(book.getTitle());
         holder.logo.setImageResource(book.getImageRef());
+        holder.ratingBar.setRating(book.getRating());
     }
 
     @Override

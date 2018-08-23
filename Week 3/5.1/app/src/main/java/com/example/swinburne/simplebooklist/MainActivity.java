@@ -26,12 +26,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initData() {
-        bookList.add(new Book("Java programming", R.drawable.java));
-        bookList.add(new Book("C programming", R.drawable.cplus));
-        bookList.add(new Book("C# programming", R.drawable.csharp));
-        bookList.add(new Book("Go programming", R.drawable.go));
-        bookList.add(new Book("Python programming", R.drawable.python));
-
+        bookList.add(new Book("Java programming", R.drawable.java, 1));
+        bookList.add(new Book("C programming", R.drawable.cplus, 2));
+        bookList.add(new Book("C# programming", R.drawable.csharp, 3));
+        bookList.add(new Book("Go programming", R.drawable.go, 4));
+        bookList.add(new Book("Python programming", R.drawable.python,5));
+        bookList.add(new Book("Better business", R.drawable.betterbusiness, 1));
+        bookList.add(new Book("Business bible", R.drawable.bookbible, 2));
+        bookList.add(new Book("Meditation handbook", R.drawable.handbook, 3));
+        bookList.add(new Book("Meditation", R.drawable.meditation, 4));
+        bookList.add(new Book("How to start a business", R.drawable.savemoney,5));
         mAdapter.notifyDataSetChanged();
     }
 
@@ -43,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
         recyclerView.setAdapter(mAdapter);
-
         initData();
     }
 }
