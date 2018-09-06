@@ -25,7 +25,7 @@ public class FoodActivity extends AppCompatActivity {
     EditText edtKeywords;
     EditText edtDate;
     EditText edtEmail;
-    RatingBar ratingBar;
+    EditText edtRating;
     ToggleButton btnShare;
     Calendar myCalendar = Calendar.getInstance();
     Food food;
@@ -47,7 +47,7 @@ public class FoodActivity extends AppCompatActivity {
         edtKeywords = findViewById(R.id.edtKeywords);
         edtDate = findViewById(R.id.edtDate);
         edtEmail = findViewById(R.id.edtEmail);
-        ratingBar = findViewById(R.id.ratingStar);
+        edtRating = findViewById(R.id.edtRating);
         btnShare = findViewById(R.id.btnShare);
 
         imgDetail.setImageResource(food.getImageRef());
@@ -56,7 +56,7 @@ public class FoodActivity extends AppCompatActivity {
         edtKeywords.setText(food.getKeywords());
         edtEmail.setText(food.getOwners());
         btnShare.setChecked(food.isShareable());
-        ratingBar.setRating(food.getRating());
+        edtRating.setText(String.valueOf(food.getRating()));
         updateLabel(food.getDate());
 
 
@@ -95,7 +95,7 @@ public class FoodActivity extends AppCompatActivity {
     public void clickEditButton (View v) {
         food.setName(edtImageName.getText().toString());
         food.setImageURL(edtLocation.getText().toString());
-        food.setRating((int) ratingBar.getRating());
+        food.setRating(Integer.valueOf(edtRating.getText().toString()));
         food.setShareable(btnShare.isChecked());
         food.setKeywords(edtKeywords.getText().toString());
         food.setOwners(edtEmail.getText().toString());
