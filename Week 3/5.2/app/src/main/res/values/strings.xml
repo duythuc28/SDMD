@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">FoodParcel</string>
+    <string name="image_description_1">This is the first image</string>
+    <string name="image_description_2">This is the second image</string>
+    <string name="image_description_3">This is the third image</string>
+    <string name="image_description_4">This is the fourth image</string>
 </resources>
