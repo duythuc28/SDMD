@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     FragmentAdapter adapterViewPager;
     private List<GeoLocation> australiaLocations = new ArrayList<>();
     FloatingActionButton btnAdd;
+    ViewPager vpPager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         initData();
         btnAdd = findViewById(R.id.btnAddLocation);
 
-        ViewPager vpPager = (ViewPager) findViewById(R.id.pager);
+        vpPager = (ViewPager) findViewById(R.id.pager);
         adapterViewPager = new FragmentAdapter(getSupportFragmentManager(), australiaLocations);
         vpPager.setAdapter(adapterViewPager);
         vpPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -77,13 +78,26 @@ public class MainActivity extends AppCompatActivity {
     private void initData() {
         TimeZone tz = TimeZone.getDefault();
         addLocation(new GeoLocation("Melbourne", -37.813629, 144.963058,tz));
-        addLocation(new GeoLocation("Sydney", -33.868820, 151.209290,tz));
-        addLocation(new GeoLocation("Canberra", -35.280937, 149.130005,tz));
-        addLocation(new GeoLocation("Perth", -31.950527, 115.860458,tz));
     }
 
     public void floatButtonClick(View view) {
         Intent intent = new Intent(this, AddLocationActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, 1);
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if(resultCode == RESULT_OK) {
+               GeoLocation location = data.getExtras().getParcelable("geoLocation");
+               if (this.australiaLocations.size() > 4) {
+                   this.australiaLocations.remove(this.australiaLocations.size()-1);
+               }
+
+                this.australiaLocations.add(0,location);
+                adapterViewPager = new FragmentAdapter(getSupportFragmentManager(), australiaLocations);
+                vpPager.setAdapter(adapterViewPager);
+            }
+        }
     }
 }
