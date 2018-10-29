@@ -1,9 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:map="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/map"
-    android:name="com.google.android.gms.maps.SupportMapFragment"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MapsActivity" />
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".MapsActivity">
+
+
+
+    <fragment
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        ></fragment>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:orientation="horizontal"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/corner_search_bar"
+        android:layout_margin="16dp">
+
+        <ImageButton
+            android:id="@+id/btn_search"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+           android:src="@mipmap/search_button"
+            android:background="@null"
+            android:layout_weight="1"
+            android:scaleType="fitStart"
+            android:layout_marginStart="5dp"
+            android:layout_gravity="center"
+            android:onClick="searchBarClick"
+           />
+
+        <ImageButton
+            android:id="@+id/btn_filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/filter_button"
+            android:layout_gravity="center"
+            android:layout_marginEnd="5dp"
+            android:onClick="filterButtonClick"
+            android:background="@null"/>
+
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="20dp"
+        android:minWidth="20dp"
+        android:maxHeight="40dp"
+        android:maxWidth="40dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"/>
+
+    <com.example.swinburne.accessiblitymap.View.MapLegend
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/view_legend"
+        android:background="@drawable/corner_legend_layout"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="10dp"
+        android:layout_alignParentBottom="true"/>
+
+
+    <com.example.swinburne.accessiblitymap.View.MapInfoWindowView
+        android:layout_margin="16dp"
+        android:id="@+id/view_infoWinDow"
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
+        android:background="@drawable/corner_legend_layout"
+        android:layout_centerHorizontal="true"
+        android:visibility="invisible"
+        android:layout_alignParentBottom="true">
+
+    </com.example.swinburne.accessiblitymap.View.MapInfoWindowView>
+
+</RelativeLayout>
+

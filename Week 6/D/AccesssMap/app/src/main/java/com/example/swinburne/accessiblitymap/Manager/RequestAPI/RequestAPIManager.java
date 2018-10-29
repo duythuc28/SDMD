@@ -19,12 +19,12 @@ import retrofit2.Response;
 public class RequestAPIManager {
     public static void getBuilding(int radius, double latidude, double longitude, String filterData, final RequestHandler<List<Building>> callback) {
         String range = String.format("%s,%f,%f,%d)", "within_circle(location",latidude, longitude, radius);
-        String selectString = "block_id, accessibility_rating, accessibility_type, accessibility_type_description, building_name, location, street_address,suburb,x_coordinate,y_coordinate";
+        String selectString = "block_id, accessibility_rating, accessibility_type, accessibility_type_description, lower(building_name), location, street_address,suburb,x_coordinate,y_coordinate";
         String whereString = "building_name!='' AND accessibility_type!='' AND census_year=2016 AND " + range;
         if (filterData != null) {
             whereString = whereString + "AND" + filterData;
         }
-        String groupString = "block_id, accessibility_rating, accessibility_type, accessibility_type_description, building_name, location, street_address,suburb,x_coordinate,y_coordinate";
+        String groupString = "block_id, accessibility_rating, accessibility_type, accessibility_type_description, lower(building_name), location, street_address,suburb,x_coordinate,y_coordinate";
         Map<String, String> data = new HashMap<>();
         data.put("$where",whereString);
         data.put("$select",selectString);
