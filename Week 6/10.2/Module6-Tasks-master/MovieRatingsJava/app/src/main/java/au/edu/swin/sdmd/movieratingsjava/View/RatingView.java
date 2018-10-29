@@ -22,6 +22,7 @@ public class RatingView extends android.support.v7.widget.AppCompatImageView {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        // TODO:
     }
 
     public RatingView(Context context, AttributeSet attrs) {
