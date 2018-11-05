@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">W2_Conversion_Tiếng Việt</string>
+    <string name="btn_convert">Chuyển đổi</string>
+    <string name="checkbox_metres">Chuyển sang mét</string>
+    <string name="metres">mét</string>
+    <string name="result">Kết quả:</string>
+</resources>

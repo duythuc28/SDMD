@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">W2_Conversion</string>
+    <string name="btn_convert">Convert</string>
+    <string name="checkbox_metres">Display in metres</string>
+    <string name="metres">metres</string>
+    <string name="result">Results:</string>
+</resources>

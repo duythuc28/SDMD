@@ -58,6 +58,8 @@ tools:context=".MapsActivity">
         android:minWidth="20dp"
         android:maxHeight="40dp"
         android:maxWidth="40dp"
+        android:indeterminateDrawable="@xml/progress"
+        android:indeterminate="true"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"/>
 
@@ -82,6 +84,16 @@ tools:context=".MapsActivity">
         android:layout_alignParentBottom="true">
 
     </com.example.swinburne.accessiblitymap.View.MapInfoWindowView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatBtn_bookmark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:onClick="onClickBookMark"
+        android:src="@mipmap/bookmark_float"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"/>
 
 </RelativeLayout>
 

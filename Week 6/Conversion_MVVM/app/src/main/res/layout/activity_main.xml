@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View" />
+        <variable name="viewModel" type="com.example.swinburne.w2_conversion.viewmodel.ConvertViewModel" />
+    </data>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="8dp"
+        tools:context="com.example.swinburne.w2_conversion.view.MainActivity">
+        <TableRow >
+
+            <EditText
+                android:id="@+id/edtMiles"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_weight="1"
+                android:hint="Miles"
+                android:inputType="numberDecimal"
+                android:text="@={viewModel.mile}"/>
+
+            <EditText
+                android:id="@+id/edtFeet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Feet"
+                android:inputType="numberDecimal"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_weight="1"
+                android:text="@={viewModel.feet}"
+                />
+
+            <EditText
+                android:id="@+id/edtInches"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Inches"
+                android:inputType="numberDecimal"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_weight="1"
+                android:text="@={viewModel.inch}">
+            </EditText>
+
+        </TableRow>
+
+        <TableRow>
+            <Button
+                android:id="@+id/btnConvert"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/btn_convert"
+                android:layout_weight="1"
+                android:onClick="@{() -> viewModel.onConvertButtonClick()}"
+                />
+        </TableRow>
+
+        <LinearLayout
+            android:layout_marginTop="5dp"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="@string/result"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/txtViewResult"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="@{viewModel.convertResult}"
+                android:textStyle="bold"
+                android:layout_weight="1"/>
+
+            <CheckBox
+                android:id="@+id/chkboxDisplayMetres"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:text="@string/checkbox_metres"
+                android:checked="@={viewModel.meters}"
+                />
+        </LinearLayout>
+
+    </TableLayout>
+
+</layout>

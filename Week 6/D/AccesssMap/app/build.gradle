@@ -45,4 +45,7 @@ dependencies {
         exclude module: 'recyclerview-v7:'
     }
     implementation 'com.google.maps.android:android-maps-utils:0.5'
+    implementation 'com.github.nirhart:parallaxscroll:1.0'
+    implementation 'com.michaelpardo:activeandroid:3.1.0-SNAPSHOT'
+    implementation 'com.android.support:design:27.1.1'
 }

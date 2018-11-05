@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_margin="8dp">
+
+    <ImageView
+        android:id="@+id/imgView_searchLocationImage"
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:src="@mipmap/thumbnail"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_margin="5dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txtView_searchName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="name"
+            android:textStyle="bold"
+            />
+        <RatingBar
+            android:id="@+id/rating_searchRating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:theme="@style/RatingBar"
+            style="@style/Base.Widget.AppCompat.RatingBar.Indicator"
+
+            android:numStars="3"/>
+        <TextView
+            android:id="@+id/txtView_searchAccessDes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="access des"
+            android:layout_marginBottom="5dp"
+            android:textSize="14sp"
+            />
+        <TextView
+            android:id="@+id/txtView_searchAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:text="Address"/>
+    </LinearLayout>
+
+
+</LinearLayout>

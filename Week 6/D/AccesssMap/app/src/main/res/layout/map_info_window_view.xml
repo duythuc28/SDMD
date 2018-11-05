@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/infoWindow_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -22,21 +23,23 @@
 
         <ImageView
             android:id="@+id/imgView_locationImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/access_high_rating"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:src="@mipmap/thumbnail"
             android:layout_marginEnd="10dp"
             />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
             android:orientation="vertical">
             <TextView
                 android:id="@+id/txtView_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="16sp"
                 android:text="Title"/>
 
             <RatingBar
@@ -44,6 +47,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="?android:attr/ratingBarStyleSmall"
+                android:theme="@style/RatingBar"
                 android:numStars="3"
                 android:rating="3"
                 />
@@ -68,9 +72,12 @@
     </LinearLayout>
 
     <Button
+        android:layout_marginTop="10dp"
         android:id="@+id/btn_Direction"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/btn_rounded"
+        android:textColor="#fff"
         android:text="@string/btn_direction" />
 
 </LinearLayout>

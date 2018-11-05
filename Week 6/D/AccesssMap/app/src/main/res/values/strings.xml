@@ -6,4 +6,7 @@
     <string name="legend_low_rating">Low Rating</string>
     <string name="legend_title">Legend</string>
     <string name="btn_direction">Direction</string>
+    <string name="search_bar_text">Search location name</string>
+    <string name="title_bookmark">Bookmark</string>
+    <string name="title_filter">Filter</string>
 </resources>

@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Sun Calculator</string>
     <string name="title_activity_add_location">AddLocationActivity</string>
+    <string name="search_place_text">Search location name</string>
 </resources>

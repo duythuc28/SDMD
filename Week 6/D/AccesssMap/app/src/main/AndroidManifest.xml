@@ -12,9 +12,9 @@
     <!-- Internet Permission -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
+        android:name=".config.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -22,6 +22,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <meta-data android:name="AA_DB_NAME" android:value="accessmap.db" />
+        <meta-data
+            android:name="AA_DB_VERSION"
+            android:value="1" />
+        <meta-data
+            android:name="AA_MODELS"
+            android:value="com.example.swinburne.accessiblitymap.Model.BuildingDA" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -34,6 +41,8 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
+
+
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps">
@@ -43,9 +52,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SearchActivity" />
-        <activity android:name=".BookMarkActivity" />
-        <activity android:name=".DetailActivity"></activity>
+        <activity
+            android:name=".SearchActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        />
+        <activity
+            android:name=".BookMarkActivity"
+            android:label="@string/title_bookmark" />
+        <activity android:name=".DetailActivity" />
+        <activity android:name=".FilterActivity"
+            android:label="@string/title_filter"
+            ></activity>
     </application>
 
 </manifest>

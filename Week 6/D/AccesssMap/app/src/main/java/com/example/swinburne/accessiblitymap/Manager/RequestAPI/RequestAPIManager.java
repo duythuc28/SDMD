@@ -21,8 +21,8 @@ public class RequestAPIManager {
         String range = String.format("%s,%f,%f,%d)", "within_circle(location",latidude, longitude, radius);
         String selectString = "block_id, accessibility_rating, accessibility_type, accessibility_type_description, lower(building_name), location, street_address,suburb,x_coordinate,y_coordinate";
         String whereString = "building_name!='' AND accessibility_type!='' AND census_year=2016 AND " + range;
-        if (filterData != null) {
-            whereString = whereString + "AND" + filterData;
+        if (!filterData.equals("all")) {
+            whereString = whereString + " AND " + filterData;
         }
         String groupString = "block_id, accessibility_rating, accessibility_type, accessibility_type_description, lower(building_name), location, street_address,suburb,x_coordinate,y_coordinate";
         Map<String, String> data = new HashMap<>();
@@ -53,22 +53,22 @@ public class RequestAPIManager {
         String whereString = "building_name!='' AND accessibility_type!='' AND census_year=2016";
         String findName;
         if (name != null) {
-            findName = "starts_with(building_name," + name +")";
-            whereString = whereString + "AND " + findName;
+            findName = "starts_with(lower(building_name),'" + name +"')";
+            whereString = whereString + " AND " + findName;
         }
 
-        if (filterData != null) {
+        if (!filterData.equals("all")) {
             whereString = whereString + " AND " + filterData;
         }
-        String selectString = "block_id, accessibility_rating, accessibility_type, accessibility_type_description, building_name, location, street_address,suburb,x_coordinate,y_coordinate";
-        String groupString = "block_id, accessibility_rating, accessibility_type, accessibility_type_description, building_name, location, street_address,suburb,x_coordinate,y_coordinate";
+        String selectString = "block_id, accessibility_rating, accessibility_type, accessibility_type_description, lower(building_name), location, street_address,suburb,x_coordinate,y_coordinate";
+        String groupString = "block_id, accessibility_rating, accessibility_type, accessibility_type_description, lower(building_name), location, street_address,suburb,x_coordinate,y_coordinate";
         Map<String, String> data = new HashMap<>();
         data.put("$where",whereString);
         data.put("$select",selectString);
         data.put("$group",groupString);
         data.putAll(page.convertToHashMap());
         RequestDataInterface service = RetrofitClientInstance.getRetrofitInstance().create(RequestDataInterface.class);
-        Call<List<Building>> call = service.getBuildingInRange(data);
+        Call<List<Building>> call = service.getBuildingByName(data);
         call.enqueue(new Callback<List<Building>>() {
             @Override
             public void onResponse(Call<List<Building>> call, Response<List<Building>> response) {

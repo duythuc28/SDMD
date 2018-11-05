@@ -1,8 +1,11 @@
 package com.example.swinburne.accessiblitymap.Model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
-public class Building {
+public class Building implements Parcelable {
     @SerializedName("street_address")
     private String address;
     @SerializedName("lower_building_name")
@@ -34,6 +37,18 @@ public class Building {
         this.rating = rating;
         this.type = type;
         this.accessibilityDes = accessibilityDes;
+    }
+
+    public Building (BuildingDA buildingDA) {
+        this.address = buildingDA.address;
+        this.name = buildingDA.name;
+        this.blockId = String.valueOf(buildingDA.blockId);
+        this.latitude = buildingDA.latitude;
+        this.longitude = buildingDA.longitude;
+        this.suburb = buildingDA.suburb;
+        this.rating = buildingDA.rating;
+        this.type = buildingDA.type;
+        this.accessibilityDes = buildingDA.accessibilityDes;
     }
 
     public String getAddress() {
@@ -107,4 +122,46 @@ public class Building {
     public void setAccessibilityDes(String accessibilityDes) {
         this.accessibilityDes = accessibilityDes;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.address);
+        dest.writeString(this.name);
+        dest.writeString(this.blockId);
+        dest.writeValue(this.longitude);
+        dest.writeValue(this.latitude);
+        dest.writeString(this.suburb);
+        dest.writeInt(this.rating);
+        dest.writeString(this.type);
+        dest.writeString(this.accessibilityDes);
+    }
+
+    protected Building(Parcel in) {
+        this.address = in.readString();
+        this.name = in.readString();
+        this.blockId = in.readString();
+        this.longitude = (Double) in.readValue(Double.class.getClassLoader());
+        this.latitude = (Double) in.readValue(Double.class.getClassLoader());
+        this.suburb = in.readString();
+        this.rating = in.readInt();
+        this.type = in.readString();
+        this.accessibilityDes = in.readString();
+    }
+
+    public static final Parcelable.Creator<Building> CREATOR = new Parcelable.Creator<Building>() {
+        @Override
+        public Building createFromParcel(Parcel source) {
+            return new Building(source);
+        }
+
+        @Override
+        public Building[] newArray(int size) {
+            return new Building[size];
+        }
+    };
 }

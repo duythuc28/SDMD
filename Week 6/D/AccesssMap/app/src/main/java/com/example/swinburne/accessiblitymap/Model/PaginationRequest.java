@@ -40,7 +40,6 @@ public class PaginationRequest {
 //    }
 
     public void nextPageRequest() {
-        limit = 10;
         offset = offset + limit;
     }
 

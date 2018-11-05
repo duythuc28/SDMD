@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.swinburne.w2_conversion.view.MainActivity">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="8dp">
+        <TableRow >
+
+            <EditText
+                android:id="@+id/edtMiles"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_weight="1"
+                android:hint="Miles"
+                android:inputType="numberDecimal" />
+
+            <EditText
+                android:id="@+id/edtFeet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Feet"
+                android:inputType="numberDecimal"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_weight="1"
+                />
+
+            <EditText
+                android:id="@+id/edtInches"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Inches"
+                android:inputType="numberDecimal"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_weight="1">
+            </EditText>
+
+        </TableRow>
+
+        <TableRow>
+            <Button
+                android:id="@+id/btnConvert"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/btn_convert"
+                android:layout_weight="1"
+                />
+        </TableRow>
+
+        <LinearLayout
+            android:layout_marginTop="5dp"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="@string/result"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/txtViewResult"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text=""
+                android:textStyle="bold"
+                android:layout_weight="1"/>
+
+            <CheckBox
+                android:id="@+id/chkboxDisplayMetres"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:text="@string/checkbox_metres"/>
+        </LinearLayout>
+
+    </TableLayout>
+
+</android.support.constraint.ConstraintLayout>
