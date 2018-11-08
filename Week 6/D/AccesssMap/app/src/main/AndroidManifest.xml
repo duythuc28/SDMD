@@ -21,8 +21,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <meta-data android:name="AA_DB_NAME" android:value="accessmap.db" />
+        <meta-data
+            android:name="AA_DB_NAME"
+            android:value="accessmap.db" />
         <meta-data
             android:name="AA_DB_VERSION"
             android:value="1" />
@@ -41,10 +42,9 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-
-
         <activity
-            android:name=".MapsActivity"
+            android:name=".SplashActivity"
+            android:theme="@style/SplashTheme"
             android:label="@string/title_activity_maps">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -52,6 +52,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".MapsActivity">
+
+        </activity>
+
         <activity
             android:name=".SearchActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -60,9 +65,10 @@
             android:name=".BookMarkActivity"
             android:label="@string/title_bookmark" />
         <activity android:name=".DetailActivity" />
-        <activity android:name=".FilterActivity"
-            android:label="@string/title_filter"
-            ></activity>
+        <activity
+            android:name=".FilterActivity"
+            android:label="@string/title_filter" />
+        <!--<activity android:name=".SplashActivity"></activity>-->
     </application>
 
 </manifest>

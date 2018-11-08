@@ -135,11 +135,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private void loadData(LatLng location) {
-        // TODO: Get radius and current location
         RequestAPIManager.getBuilding(radius, location.latitude, location.longitude, accessType, new RequestHandler<List<Building>>() {
             @Override
             public void onResponse(List<Building> buildings) {
-                // TODO: Display building in map
                 mBuildings.addAll(buildings);
                 Log.d("Number of building", String.valueOf(buildings.size()));
                 progressBar.setVisibility(View.INVISIBLE);

@@ -81,10 +81,15 @@ public class BuildingAdapter extends RecyclerView.Adapter<BuildingAdapter.Buildi
                 listener.rowOnClick(locations.get(index));
             }
         });
+
     }
 
     @Override
     public int getItemCount() {
         return locations.size();
+    }
+
+    public void removeBuilding(int index) {
+        this.locations.remove(index);
     }
 }

@@ -32,10 +32,12 @@ public class ConvertPresenter implements IPresenter {
     public void onDestroy() {
 
     }
-
+    // When the user select convert button, the presenter receives the actions from
+    // View layer to set the data. Then, after computing successfully,
+    // it invokes the callback to notify the view to update the UI based on the new data
+    @Override
     public void onConvertButtonClick(double inch, double feet, double mile, boolean isMetres) {
         model.setData(inch, feet, mile, isMetres);
-//        double result = model.toValue();
         String result;
         if (isMetres) {
             result = String.format("%.2f meters", model.toValue());

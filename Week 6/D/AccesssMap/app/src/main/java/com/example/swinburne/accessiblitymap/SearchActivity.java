@@ -3,16 +3,23 @@ package com.example.swinburne.accessiblitymap;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
+import com.ethanhua.skeleton.Skeleton;
+import com.ethanhua.skeleton.SkeletonScreen;
 import com.example.swinburne.accessiblitymap.Adapter.BuildingAdapter;
 import com.example.swinburne.accessiblitymap.Manager.RequestAPI.RequestAPIManager;
 import com.example.swinburne.accessiblitymap.Manager.RequestAPI.RequestHandler;
@@ -33,6 +40,7 @@ public class SearchActivity extends AppCompatActivity {
     BuildingAdapter mAdapter;
     PaginationRequest currentPage = new PaginationRequest();
     String currentQuery;
+    EndlessRecyclerViewScrollListener scrollListener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,21 +85,9 @@ public class SearchActivity extends AppCompatActivity {
         });
 
         recyclerView = (RecyclerView) findViewById(R.id.listView);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, OrientationHelper.VERTICAL, false);
+
         recyclerView.setLayoutManager(linearLayoutManager);
-
-        recyclerView.addOnScrollListener(new EndlessRecyclerViewScrollListener(linearLayoutManager) {
-            @Override
-            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-//                currentPage.nextPageRequest();
-                if (currentQuery == null || currentQuery == "") {
-                    loadData(false, new PaginationRequest(10, page));
-                } else {
-                    searchData(currentQuery, new PaginationRequest(10, page), false);
-                }
-            }
-        });
-
         mAdapter = new BuildingAdapter(mBuildings, this);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         mAdapter.setListener(new BuildingAdapter.BuildingApdaterCallBack() {
@@ -106,7 +102,27 @@ public class SearchActivity extends AppCompatActivity {
         recyclerView.setAdapter(mAdapter);
 
         loadData(true, new PaginationRequest());
+
+        scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                int offset = totalItemsCount;
+
+                Log.d("offset: ", String.valueOf(offset));
+                Log.d("page: ", String.valueOf(page));
+
+                if (currentQuery == null || currentQuery == "") {
+                    loadData(false, new PaginationRequest(10, offset));
+                } else {
+                    searchData(currentQuery, new PaginationRequest(10, offset), false);
+                }
+            }
+        };
+
+        recyclerView.addOnScrollListener(scrollListener);
+
     }
+
 
     private void searchData(String name, PaginationRequest page, final boolean isReset) {
         SharedPreferences preferences = getSharedPreferences("SharePref", MODE_PRIVATE);
@@ -116,20 +132,22 @@ public class SearchActivity extends AppCompatActivity {
             public void onResponse(List<Building> buildings) {
                 if (isReset) {
                     mBuildings.clear();
+                    scrollListener.resetState();
                 }
                 mBuildings.addAll(buildings);
                 mAdapter.notifyDataSetChanged();
-                recyclerView.setAdapter(mAdapter);
             }
 
             @Override
             public void onFailure(String error) {
                 // TODO: Handle error
+                Toast.makeText(getApplicationContext(), error, Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void loadData(final boolean isReset, PaginationRequest page) {
+
         SharedPreferences preferences = getSharedPreferences("SharePref", MODE_PRIVATE);
         String filterData = preferences.getString("accessType", null);
         RequestAPIManager.getBuildingByName(null, page, filterData, new RequestHandler<List<Building>>() {
@@ -137,15 +155,18 @@ public class SearchActivity extends AppCompatActivity {
             public void onResponse(List<Building> buildings) {
                 if (isReset) {
                     mBuildings.clear();
+                    scrollListener.resetState();
                 }
                 mBuildings.addAll(buildings);
+//                mAdapter.notifyItemRangeInserted(mAdapter.getItemCount(), mBuildings.size() - 1);
                 mAdapter.notifyDataSetChanged();
-                recyclerView.setAdapter(mAdapter);
             }
+
 
             @Override
             public void onFailure(String error) {
                 // TODO: handle error here
+                Toast.makeText(getApplicationContext(), error, Toast.LENGTH_SHORT).show();
             }
         });
     }

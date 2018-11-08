@@ -5,4 +5,5 @@ public interface IPresenter {
     void onPause();
     void onResume();
     void onDestroy();
+    public void onConvertButtonClick(double inch, double feet, double mile, boolean isMetres);
 }

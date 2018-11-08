@@ -7,7 +7,6 @@ package com.example.swinburne.w2_conversion.model;
 public class Conversion {
     private double inch;
     private double feet;
-
     private double mile;
     private boolean isMetres;
 
@@ -26,10 +25,6 @@ public class Conversion {
     }
 
     public Conversion() {
-//        this.inch = 0;
-//        this.feet = 0;
-//        this.mile = 0;
-//        this.isMetres = false;
     }
 
     public void setData(double inch, double feet, double mile, boolean isMetres) {
