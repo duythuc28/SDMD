@@ -17,6 +17,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.ethanhua.skeleton.Skeleton;
@@ -43,6 +45,7 @@ public class SearchActivity extends AppCompatActivity {
     String currentQuery;
     EndlessRecyclerViewScrollListener scrollListener;
     SwipeRefreshLayout pullToRefresh;
+    ProgressBar searchProgress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +66,8 @@ public class SearchActivity extends AppCompatActivity {
 
     private void initializeUI() {
         pullToRefresh = findViewById(R.id.swipeContainer);
+        searchProgress = findViewById(R.id.search_progressBar);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Search Locations");
@@ -101,6 +106,12 @@ public class SearchActivity extends AppCompatActivity {
                 intent.putExtra("building_data", building);
                 startActivity(intent);
             }
+
+            @Override
+            public void rowOnLongTouch(Building building) {
+
+            }
+
         });
         recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
         recyclerView.setAdapter(mAdapter);
@@ -148,11 +159,13 @@ public class SearchActivity extends AppCompatActivity {
 
 
     private void searchData(String name, PaginationRequest page, final boolean isReset) {
+        searchProgress.setVisibility(View.VISIBLE);
         SharedPreferences preferences = getSharedPreferences("SharePref", MODE_PRIVATE);
         String filterData = preferences.getString("accessType", null);
         RequestAPIManager.getBuildingByName(name, page, filterData, new RequestHandler<List<Building>>() {
             @Override
             public void onResponse(List<Building> buildings) {
+                searchProgress.setVisibility(View.INVISIBLE);
                 if (isReset) {
                     mBuildings.clear();
                     scrollListener.resetState();
@@ -164,18 +177,20 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onFailure(String error) {
                 // TODO: Handle error
+                searchProgress.setVisibility(View.INVISIBLE);
                 Toast.makeText(getApplicationContext(), error, Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void loadData(final boolean isReset, PaginationRequest page) {
-
+        searchProgress.setVisibility(View.VISIBLE);
         SharedPreferences preferences = getSharedPreferences("SharePref", MODE_PRIVATE);
         String filterData = preferences.getString("accessType", null);
         RequestAPIManager.getBuildingByName(null, page, filterData, new RequestHandler<List<Building>>() {
             @Override
             public void onResponse(List<Building> buildings) {
+                searchProgress.setVisibility(View.INVISIBLE);
                 if (isReset) {
                     mBuildings.clear();
                     scrollListener.resetState();
@@ -188,6 +203,7 @@ public class SearchActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(String error) {
+                searchProgress.setVisibility(View.INVISIBLE);
                 // TODO: handle error here
                 Toast.makeText(getApplicationContext(), error, Toast.LENGTH_SHORT).show();
             }

@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -31,6 +32,7 @@ public class BuildingAdapter extends RecyclerView.Adapter<BuildingAdapter.Buildi
 
     public interface BuildingApdaterCallBack {
         void rowOnClick(Building building);
+        void rowOnLongTouch(Building building);
     }
 
     public BuildingAdapter(List<Building> locations, Context mContext) {
@@ -75,10 +77,25 @@ public class BuildingAdapter extends RecyclerView.Adapter<BuildingAdapter.Buildi
         holder.txtViewAddress.setText(location.getAddress());
         holder.txtViewAccessDescription.setText(location.getAccessibilityDes());
         final int index = position;
+//        holder.holderView.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                listener.rowOnClick(locations.get(index));
+//                return false;
+//            }
+//        });
         holder.holderView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 listener.rowOnClick(locations.get(index));
+            }
+        });
+
+        holder.holderView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                listener.rowOnLongTouch(locations.get(index));
+                return true;
             }
         });
 

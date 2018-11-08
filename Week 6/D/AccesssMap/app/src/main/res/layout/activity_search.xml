@@ -46,6 +46,18 @@
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
-
+    <ProgressBar
+        android:id="@+id/search_progressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="20dp"
+        android:minWidth="20dp"
+        android:maxHeight="40dp"
+        android:maxWidth="40dp"
+        android:indeterminateDrawable="@xml/progress"
+        android:indeterminate="true"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"/>
 
 </RelativeLayout>
