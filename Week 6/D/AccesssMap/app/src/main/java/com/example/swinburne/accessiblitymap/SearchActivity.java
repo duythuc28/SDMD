@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -41,12 +42,14 @@ public class SearchActivity extends AppCompatActivity {
     PaginationRequest currentPage = new PaginationRequest();
     String currentQuery;
     EndlessRecyclerViewScrollListener scrollListener;
+    SwipeRefreshLayout pullToRefresh;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         initializeUI();
-
+        onRefresh();
     }
 
 
@@ -59,6 +62,7 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void initializeUI() {
+        pullToRefresh = findViewById(R.id.swipeContainer);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Search Locations");
@@ -120,6 +124,25 @@ public class SearchActivity extends AppCompatActivity {
         };
 
         recyclerView.addOnScrollListener(scrollListener);
+
+    }
+
+    private void onRefresh() {
+        pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                if (currentQuery == null || currentQuery == "") {
+                    loadData(true, new PaginationRequest(10, 0));
+                } else {
+                    searchData(currentQuery, new PaginationRequest(10, 0), true);
+                }
+                pullToRefresh.setRefreshing(false);
+            }
+
+        });
+        // Configure the refreshing colors
+        pullToRefresh.setColorSchemeResources(R.color.appColor,
+                android.R.color.holo_blue_dark);
 
     }
 
